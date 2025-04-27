@@ -1,0 +1,59 @@
+# Phonocardiogram Visualizer
+
+A simple Java desktop application that visualizes heart sounds (phonocardiograms) by reading `.wav` audio files.  
+It can display both the raw waveform and the frequency spectrum of the sound using Fast Fourier Transform (FFT).
+
+---
+
+## 🩺 Features
+- 📈 Plot the time-domain waveform (amplitude vs time)
+- 🎶 Load `.wav` files and visualize heart sound data
+- ⚡️ Display the frequency spectrum (amplitude vs frequency) using FFT
+- 🖥️ Built using Java Swing for GUI and JMathPlot for graphs
+- 🎙️ (Optional) Real-time microphone input (future work)
+
+---
+
+## 🛠 Technologies Used
+- **Java**
+- **Java Sound API** (for reading audio files)
+- **Swing** (for the graphical user interface)
+- **JMathPlot** (for plotting graphs)
+- **Custom FFT and Complex classes** (for frequency analysis)
+
+---
+
+## 🚀 How to Run
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/pcg-visualizer.git
+   cd pcg-visualizer
+   ```
+
+2. **Open the project in your IDE** (e.g., IntelliJ IDEA, Eclipse)
+
+3. **Set up JMathPlot:**
+   - Download the [JMathPlot library](http://code.google.com/p/jmathplot/).
+   - Add `JMathPlot.jar` to your project's classpath.
+
+4. **Run Main.java**
+   - Main.java will launch the application window.
+
+## 📚 Project Structure
+```
+src/
+└── com/yourname/pcgvisualizer/
+    ├── Main.java          # Launches the application
+    ├── AppWindow.java     # Builds the GUI
+    ├── AudioProcessor.java # Loads and processes WAV files
+    ├── FFT.java           # Computes Fast Fourier Transform
+    └── Complex.java       # Supports complex number math for FFT
+```
+---
+
+## 📄 License
+This project is licensed under the MIT License.  
+Feel free to use, modify, and distribute it for educational and research purposes.
+
+---
