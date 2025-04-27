@@ -10,7 +10,6 @@ It can display both the raw waveform and the frequency spectrum of the sound usi
 - 🎶 Load `.wav` files and visualize heart sound data
 - ⚡️ Display the frequency spectrum (amplitude vs frequency) using FFT
 - 🖥️ Built using Java Swing for GUI and JMathPlot for graphs
-- 🎙️ (Optional) Real-time microphone input (future work)
 
 ---
 
@@ -33,12 +32,9 @@ It can display both the raw waveform and the frequency spectrum of the sound usi
 
 2. **Open the project in your IDE** (e.g., IntelliJ IDEA, Eclipse)
 
-3. **Set up JMathPlot:**
-   - Download the [JMathPlot library](http://code.google.com/p/jmathplot/).
-   - Add `JMathPlot.jar` to your project's classpath.
-
-4. **Run Main.java**
+3. **Run Main.java**
    - Main.java will launch the application window.
+---
 
 ## 📚 Project Structure
 ```
