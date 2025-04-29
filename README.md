@@ -26,8 +26,8 @@ It can display both the raw waveform and the frequency spectrum of the sound usi
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/pcg-visualizer.git
-   cd pcg-visualizer
+   git clone https://github.com/alibrky04/multidisciplinary-project-group-10.git
+   cd multidisciplinary-project-group-10
    ```
 
 2. **Open the project in your IDE** (e.g., IntelliJ IDEA, Eclipse)
