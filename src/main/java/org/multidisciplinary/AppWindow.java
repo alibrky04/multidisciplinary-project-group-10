@@ -48,7 +48,7 @@ public class AppWindow extends JFrame {
     private Plot2DPanel frequencyPlot;
 
     // Waveform için kayan pencere verisi
-    private final int WAVEFORM_WINDOW_SIZE = 4096; // Gösterilecek örnek sayısı
+    private final int WAVEFORM_WINDOW_SIZE = 4096 * 16; // Gösterilecek örnek sayısı geriye dönük ses uzunluğu ile ilişkili
     private LinkedList<Double> waveformWindowData = new LinkedList<>();
 
     // FFT Analiz penceresi (Örnek boyut, tampon boyutundan farklı olabilir)
@@ -78,9 +78,14 @@ public class AppWindow extends JFrame {
 
         // 3. Grafik Panellerini Oluşturma
         waveformPlot = createPlot("Time (samples)", "Amplitude");
-        frequencyPlot = createPlot("Frequency (Hz)", "Magnitude");
-        // Genlik/Frekans eksenlerini sabitlemek iyi olabilir
+        waveformPlot.setFixedBounds(0, 0, WAVEFORM_WINDOW_SIZE);
         waveformPlot.setFixedBounds(1, -1.0, 1.0); // Örnek: 16-bit için -1 ile 1 arası normalleştirilmiş
+
+        frequencyPlot = createPlot("Frequency (Hz)", "Magnitude");
+        frequencyPlot.setFixedBounds(0, 0, 300); // Eksen 0 = X ekseni
+
+        // Genlik/Frekans eksenlerini sabitlemek iyi olabilir
+
 
         // 4. Etiket ve Düğmeleri Oluşturma
         final JLabel fileNameLabel = new JLabel("No file loaded.");
@@ -463,6 +468,10 @@ public class AppWindow extends JFrame {
                  double[] timeIndices = new double[plotData.length];
                  for(int i=0; i<plotData.length; i++) timeIndices[i] = i; // Basit indeksleme
                  plot.addLinePlot("Live Waveform", timeIndices, plotData);
+
+                // --- SINIRLARI YENİDEN UYGULA ---
+                plot.setFixedBounds(0, 0, WAVEFORM_WINDOW_SIZE); // X Ekseni
+                plot.setFixedBounds(1, -1.0, 1.0); 
              }
         });
     }
@@ -490,6 +499,7 @@ public class AppWindow extends JFrame {
             if (freqData.length == magData.length && freqData.length > 0) {
                 plot.addLinePlot("Live Spectrum", freqData, magData);
             }
+            plot.setFixedBounds(0, 0, 3000);
         });
     }
 
