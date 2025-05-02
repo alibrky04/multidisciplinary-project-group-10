@@ -4,10 +4,12 @@ import org.math.plot.Plot2DPanel;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -31,21 +33,24 @@ public class AppWindow extends JFrame {
      * @param title The title of the window.
      */
     public AppWindow(final String title) {
-        super(title);
+        super(title);// JFrame'in constructor'ını çağırır, pencere başlığını ayarlar.
 
-        audioPlayer = new AudioPlayer();
+        audioPlayer = new AudioPlayer();// Ses çalmak için kullanılacak nesneyi oluşturur.
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        // 2. Pencere Boyutunu ve Konumunu Ayarlama
         final int window_width = 1000;
         final int window_height = 800;
         setSize(window_width, window_height);
         setLocationRelativeTo(null);
 
+        // 3. Grafik Panellerini Oluşturma
         final Plot2DPanel waveformPlot = createPlot("Time (samples)", "Amplitude");
         final Plot2DPanel frequencyPlot = createPlot("Frequency (Hz)", "Magnitude");
 
+        // 4. Etiket ve Düğmeleri Oluşturma
         final JLabel fileNameLabel = new JLabel("No file loaded.");
         fileNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -61,20 +66,26 @@ public class AppWindow extends JFrame {
         final JButton playButton = new JButton("Play WAV File");
         playButton.addActionListener(e -> playAudio());
 
+        // 5. Düğmeleri Gruplayan Panel
         final JPanel buttonPanel = new JPanel();
         buttonPanel.add(loadButton);
         buttonPanel.add(playButton);
 
+        // 6. Üst Paneli Oluşturma (Etiket ve Düğme Paneli)
         final JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(fileNameLabel, BorderLayout.CENTER);
         topPanel.add(buttonPanel, BorderLayout.SOUTH);
 
+        // 7. Bölünmüş Paneli (Split Pane) Oluşturma
+        // İki grafik panelini dikey olarak ayıran ve boyutları ayarlanabilen bir bölme oluşturur.
         final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 new JScrollPane(waveformPlot), new JScrollPane(frequencyPlot));
 
+        // 8. Ana Bileşenleri Pencereye Ekleme
         add(topPanel, BorderLayout.NORTH);
         add(splitPane, BorderLayout.CENTER);
 
+        // 9. Pencere Boyutu Değiştiğinde Bölücüyü Ayarlama
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
