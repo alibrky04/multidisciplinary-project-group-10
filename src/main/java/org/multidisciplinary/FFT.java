@@ -1,5 +1,7 @@
 package org.multidisciplinary;
 
+import java.util.stream.IntStream;
+
 /**
  * Fast Fourier Transform (FFT) utility class.
  * The FFT algorithm transforms a time-domain audio signal (waveform)
@@ -25,11 +27,9 @@ public final class FFT {
         final Complex[] complexSamples = convertToComplex(samples, paddedLength);
         final Complex[] fftResult = fft(complexSamples);
 
-        final double[] magnitudes = new double[paddedLength / 2];
-        for (int i = 0; i < paddedLength / 2; i++) {
-            magnitudes[i] = fftResult[i].abs();
-        }
-        return magnitudes;
+        return IntStream.range(0, paddedLength / 2)
+                .mapToDouble(i -> fftResult[i].abs())
+                .toArray();
     }
 
     /**
@@ -41,11 +41,9 @@ public final class FFT {
      */
     public static double[] computeFrequencies(final int length, final int sampleRate) {
         final double binSize = (double) sampleRate / (length * 2);
-        final double[] frequencies = new double[length];
-        for (int i = 0; i < length; i++) {
-            frequencies[i] = i * binSize;
-        }
-        return frequencies;
+        return IntStream.range(0, length)
+                .mapToDouble(i -> i * binSize)
+                .toArray();
     }
 
     /**
@@ -56,14 +54,9 @@ public final class FFT {
      * @return a complex-valued array representing the input signal
      */
     private static Complex[] convertToComplex(final double[] samples, final int paddedLength) {
-        final Complex[] result = new Complex[paddedLength];
-        for (int i = 0; i < samples.length; i++) {
-            result[i] = new Complex(samples[i], 0);
-        }
-        for (int i = samples.length; i < paddedLength; i++) {
-            result[i] = new Complex(0, 0);
-        }
-        return result;
+        return IntStream.range(0, paddedLength)
+                .mapToObj(i -> i < samples.length ? new Complex(samples[i], 0) : new Complex(0, 0))
+                .toArray(Complex[]::new);
     }
 
     /**

@@ -39,7 +39,7 @@ public class AppWindow extends JFrame {
     private JButton stopLiveButton;
     private JLabel statusLabel; // fileNameLabel'ı durum için de kullanabiliriz veya yeni ekleyebiliriz
     private volatile boolean isRecording = false; // Kayıt durumunu belirten bayrak (volatile önemli!)
-    
+
     private TargetDataLine targetDataLine;        // Aktif ses giriş hattı
     private Thread recordingThread;             // Ses okuma iş parçacığı
     private AudioFormat audioFormat;              // Kullanılacak ses formatı
@@ -82,7 +82,7 @@ public class AppWindow extends JFrame {
         waveformPlot.setFixedBounds(1, -1.0, 1.0); // Örnek: 16-bit için -1 ile 1 arası normalleştirilmiş
 
         frequencyPlot = createPlot("Frequency (Hz)", "Magnitude");
-        frequencyPlot.setFixedBounds(0, 0, 300); // Eksen 0 = X ekseni
+        frequencyPlot.setFixedBounds(0, 0, 3000); // Eksen 0 = X ekseni
 
         // Genlik/Frekans eksenlerini sabitlemek iyi olabilir
 
@@ -90,6 +90,9 @@ public class AppWindow extends JFrame {
         // 4. Etiket ve Düğmeleri Oluşturma
         final JLabel fileNameLabel = new JLabel("No file loaded.");
         fileNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        statusLabel = new JLabel("Status: Idle");
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         final JButton loadButton = new JButton("Load WAV File");
         loadButton.addActionListener(e -> chooseFile()
@@ -223,6 +226,7 @@ public class AppWindow extends JFrame {
 
         plot.removeAllPlots();
         plot.addLinePlot("Frequency Spectrum", frequencies, magnitudes);
+        plot.setFixedBounds(0, 0, 3000);
     }
 
     /**
@@ -471,7 +475,7 @@ public class AppWindow extends JFrame {
 
                 // --- SINIRLARI YENİDEN UYGULA ---
                 plot.setFixedBounds(0, 0, WAVEFORM_WINDOW_SIZE); // X Ekseni
-                plot.setFixedBounds(1, -1.0, 1.0); 
+                plot.setFixedBounds(1, -1.0, 1.0);
              }
         });
     }
